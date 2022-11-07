@@ -1,11 +1,11 @@
 package Kodlama.io.Devs.webApi.controllers;
 
 import Kodlama.io.Devs.business.abstracts.LanguageService;
-import Kodlama.io.Devs.entities.concretes.Language;
+import Kodlama.io.Devs.business.request.LanguageRequest;
+import Kodlama.io.Devs.business.response.LanguageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import javax.annotation.processing.Generated;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,28 +19,28 @@ public class LanguagesController {
         this.languageService = languageService;
     }
 
-    @Generated("/getall")
-    public List<Language> getAll(){
+    @GetMapping("/getall")
+    public List<LanguageResponse> getAll(){
         return languageService.getAll();
     }
 
-    @Generated("/add")
-    public void add(Language language){
+    @PostMapping("/add")
+    public void add(LanguageRequest language) throws Exception{
         languageService.add(language);
     }
 
-    @Generated("/delete")
+    @DeleteMapping("/delete")
     public void delete(int id){
         languageService.delete(id);
     }
 
-    @Generated("/update")
-    public void update(int id, Language language){
-        languageService.update(id, language);
+    @PutMapping("/update")
+    public void update(int id, LanguageRequest language){
+        languageService.update(language, id);
     }
 
-    @Generated("/get")
-    public Language get(int id){
-        return languageService.getId(id);
+    @GetMapping("/get")
+    public LanguageResponse getById(int id){
+        return languageService.getResponseById(id);
     }
 }

@@ -6,23 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
-@Table(name="languages")
+@Table(name = "technologies")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Language {
+public class Technology {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "language", cascade = CascadeType.ALL)
-    Set<Technology> technologies;
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
 }
